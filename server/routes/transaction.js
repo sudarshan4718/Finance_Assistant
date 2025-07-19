@@ -7,6 +7,6 @@ const transactionRouter = express.Router();
 
 transactionRouter.post('/create-transaction', userMiddleware, createTransaction);
 transactionRouter.get('/get-transactions', userMiddleware,getTransactions);
-transactionRouter.post('/scan-receipt', userMiddleware, upload.single('file'),scanReceipt);
+transactionRouter.post('/scan-receipt', userMiddleware, upload.single('receipt'),scanReceipt);
 
 export default transactionRouter;

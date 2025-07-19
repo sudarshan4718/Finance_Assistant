@@ -130,7 +130,7 @@ export const scanReceipt = async (req, res) => {
         });
 
     } catch (error) {
-        return res.status(500).json({ success: false, message: error.message });
+        return res.status(500).json({ success: false, message: "Please upload valid file type (jpg or pdf)" });
     }
 };
 

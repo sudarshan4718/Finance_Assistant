@@ -1,26 +1,58 @@
-import React, { useState } from 'react';
-import TransactionForm from '../components/Transactions/TransactionForm';
-import TransactionList from '../components/Transactions/TransactionList';
-import Charts from '../components/Transactions/Charts';
-import ReceiptUploader from '../components/Transactions/ReceiptUploader';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Container, Grid, Paper, Typography } from '@mui/material';
+import CategoryChart from '../components/CategoryChart';
+import TransactionForm from '../components/TransactionForm';
+import ReceiptUpload from '../components/ReceiptUpload';
 
-const Dashboard = () => {
+function Dashboard() {
+  const [transactions, setTransactions] = useState([]);
   const [refresh, setRefresh] = useState(false);
 
-  const triggerRefresh = () => setRefresh(!refresh);
+  // Function to be called by child components to trigger a refresh
+  const handleDataUpdate = () => {
+    setRefresh(prev => !prev);
+  };
+  
+  useEffect(() => {
+    const fetchTransactions = async () => {
+      try {
+        const response = await axios.get('/api/transaction/get-transactions');
+        setTransactions(response.data.transactions || []);
+      } catch (error) {
+        console.error('Failed to fetch transactions:', error);
+      }
+    };
+    fetchTransactions();
+  }, [refresh]); // Rerun effect when refresh state changes
 
   return (
-    <div style={{ padding: '2rem' }}>
-      <h2>📊 Dashboard</h2>
-      <TransactionForm onSuccess={triggerRefresh} />
-      <hr />
-      <ReceiptUploader onSuccess={triggerRefresh} />
-      <hr />
-      <TransactionList key={refresh} />
-      <hr />
-      <Charts />
-    </div>
+    <Container maxWidth="lg">
+      <Typography variant="h4" sx={{ mb: 4 }}>
+        Dashboard
+      </Typography>
+      <Grid container spacing={3}>
+        {/* Chart */}
+        <Grid item xs={12} md={4}>
+          <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', height: 400 }}>
+            <CategoryChart data={transactions} />
+          </Paper>
+        </Grid>
+        {/* Add Transaction Form */}
+        <Grid item xs={12} md={5}>
+          <Paper sx={{ p: 2 }}>
+            <TransactionForm onTransactionAdded={handleDataUpdate} />
+          </Paper>
+        </Grid>
+        {/* Receipt Upload */}
+        <Grid item xs={12}>
+          <Paper sx={{ p: 2 }}>
+            <ReceiptUpload onUploadSuccess={handleDataUpdate} />
+          </Paper>
+        </Grid>
+      </Grid>
+    </Container>
   );
-};
+}
 
 export default Dashboard;

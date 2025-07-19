@@ -9,10 +9,7 @@ import transactionRouter from "./routes/transaction.js";
 const app = express();
 const port = process.env.PORT || 6000;
 
-app.use(cors({
-  origin: 'http://localhost:5173',
-  credentials: true
-}));
+app.use(cors());
 
 connectDB();
 

@@ -1,27 +1,32 @@
-import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
-import { AuthProvider } from "./context/AuthContext";
-import Navbar from "./components/Transactions/Navbar";
-import Home from "./pages/Home";
-import Login from "./components/auth/login";
-import Register from "./components/auth/register";
-import Dashboard from "./pages/Dashboard";
-import NotFound from "./pages/NotFound";
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Dashboard from './pages/Dashboard';
+import Transactions from './pages/Transactions';
+import Navbar from './components/Navbar';
+import PrivateRoute from './components/PrivateRoute';
+import { Box } from '@mui/material';
 
-const App = () => {
+function App() {
   return (
-    <AuthProvider>
-      <Router>
-        <Navbar />
+    <>
+      <Navbar />
+      <Box component="main" sx={{ p: 3 }}>
         <Routes>
-          <Route path="/" element={<Home />} />
+          {/* Public Routes */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="*" element={<NotFound />} />
+
+          {/* Private Routes */}
+          <Route path="/" element={<PrivateRoute />}>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/transactions" element={<Transactions />} />
+          </Route>
         </Routes>
-      </Router>
-    </AuthProvider>
+      </Box>
+    </>
   );
-};
+}
 
 export default App;
