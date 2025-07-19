@@ -2,8 +2,12 @@ import userModel from "../models/user.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
-export const registerUSer = async (req, res) => {
+export const registerUser = async (req, res) => {
     try {
+
+        console.log("Register endpoint hit");
+  console.log("Request body:", req.body);
+
         const { name, email, password } = req.body;
 
         if (!name || !email || !password) {
@@ -12,6 +16,8 @@ export const registerUSer = async (req, res) => {
                 message: "User details missing",
             });
         }
+
+        console.log("📥 Incoming register data:", req.body);
 
         const userExists = await userModel.findOne({ email });
 
