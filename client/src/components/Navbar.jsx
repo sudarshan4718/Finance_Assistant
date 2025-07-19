@@ -15,8 +15,8 @@ function Navbar() {
   return (
     <AppBar position="static">
       <Toolbar>
-        <AccountBalanceWalletIcon sx={{ mr: 1 }} />
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+        <AccountBalanceWalletIcon sx={{ mr: 2 }} />
+        <Typography variant="h9" component="div" sx={{ flexGrow: 1 }}>
           <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
             Finance Tracker
           </Link>

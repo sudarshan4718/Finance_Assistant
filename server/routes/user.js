@@ -1,5 +1,5 @@
 import express from 'express';
-import { logoutUser, registerUser } from '../controller/user.js';
+import { isAuthenticated, logoutUser, registerUser } from '../controller/user.js';
 import { getUserdetails, loginUser } from '../controller/user.js';
 import { userMiddleware } from '../middleware/user.js';
 
@@ -10,5 +10,6 @@ userRouter.post('/register', registerUser);
 userRouter.post('/login', loginUser);
 userRouter.post('/logout', logoutUser);
 userRouter.get('/user-details',userMiddleware, getUserdetails);
+userRouter.get('/is-authenticated', userMiddleware, isAuthenticated);
 
 export default userRouter;

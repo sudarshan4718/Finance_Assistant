@@ -5,7 +5,7 @@ import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import Transactions from './pages/Transactions';
 import Navbar from './components/Navbar';
-import PrivateRoute from './components/PrivateRoute';
+import PrivateRoute from './components/privateRoute';
 import { Box } from '@mui/material';
 
 function App() {
