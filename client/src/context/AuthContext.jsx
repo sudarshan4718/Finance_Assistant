@@ -9,6 +9,7 @@ axios.defaults.withCredentials = true;
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+
   const navigate = useNavigate();
 
   // Ensure cookies are sent with every request
@@ -35,6 +36,8 @@ export const AuthProvider = ({ children }) => {
     checkLoggedIn();
   }, []);
 
+   // Function to handle user authentication
+  // Login, register, and logout functions
   const login = async (email, password) => {
     try {
       const response = await axios.post('/api/user/login', { email, password });
@@ -59,7 +62,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      await axios.post('/api/user/logout'); // Ensure backend clears the cookie
+      await axios.post('/api/user/logout'); 
     } catch (err) {
       console.error('Logout failed', err);
     } finally {

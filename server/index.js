@@ -9,6 +9,7 @@ import transactionRouter from "./routes/transaction.js";
 const app = express();
 const port = process.env.PORT || 6000;
 
+// Middleware to handle CORS and allow credentials
 app.use(cors(
     {
         origin: 'http://localhost:5173',
@@ -18,10 +19,15 @@ app.use(cors(
 
 connectDB();
 
+// Middleware to parse JSON and URL-encoded data
 app.use(express.json());
+
 app.use(express.urlencoded({ extended: true }));
+
+// Middleware to parse cookies
 app.use(cookieParser());
 
+//Routes
 app.use('/api/user', userRouter);
 app.use('/api/transaction', transactionRouter);
 

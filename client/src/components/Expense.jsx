@@ -14,14 +14,14 @@ const ExpenseComponent = ({ data }) => {
     const currentYear = now.getFullYear();
 
     const expenseTransactions = data.filter(item => {
-      // ✅ GUARD CLAUSE: Skip if item is null, not an expense, or has no date/amount.
+      // If item is not defined or not available, skip it
       if (!item || item.trans_type !== 'EXPENSE' || !item.date || typeof item.amount !== 'number') {
         return false;
       }
 
       const itemDate = new Date(item.date);
 
-      // ✅ GUARD CLAUSE: Ensure the date is valid before comparing it.
+      // Check if itemDate is valid and matches the current month and year for monthly expenses
       return !isNaN(itemDate.getTime()) &&
              itemDate.getMonth() === currentMonth &&
              itemDate.getFullYear() === currentYear;
@@ -29,11 +29,10 @@ const ExpenseComponent = ({ data }) => {
 
     const expenseSum = expenseTransactions.reduce((acc, item) => acc + item.amount, 0);
     setTotalExpense(expenseSum);
-  }, [data]); // The dependency array is correct
+  }, [data]); 
 
   return (
     <div>
-      {/* Using toLocaleString for better number formatting */}
       <h3>Expenses: ₹{totalExpense.toLocaleString('en-IN')}</h3>
     </div>
   );

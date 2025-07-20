@@ -10,9 +10,11 @@ function Register() {
   const [error, setError] = useState('');
   const { register } = useContext(AuthContext);
 
+  // Function to handle form submission for registration
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    // Ensure password meets minimum length requirement
     if (password.length < 6) {
         setError('Password must be at least 6 characters long.');
         return;

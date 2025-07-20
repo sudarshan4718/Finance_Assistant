@@ -2,6 +2,7 @@ import userModel from "../models/user.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
+// Register a new user logic
 export const registerUser = async (req, res) => {
     try {
 
@@ -38,6 +39,9 @@ export const registerUser = async (req, res) => {
 
         await newUser.save();
 
+        // set JWT token in cookie
+        // This token will be used for authentication in subsequent requests
+
         const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, {
             expiresIn: '7d',
         });
@@ -62,6 +66,7 @@ export const registerUser = async (req, res) => {
 };
 
 
+// Login user logic
 export const loginUser = async (req,res) => {
     try {
         const {email, password} = req.body;
@@ -91,6 +96,8 @@ export const loginUser = async (req,res) => {
         },
      );
 
+     // set JWT token in cookie
+
      res.cookie('token', token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
@@ -110,8 +117,11 @@ export const loginUser = async (req,res) => {
     }
 }
 
+
+// Logout user logic
 export const logoutUser = async (req,res) => {
     try {
+        // Clear the cookie by setting it to expire in the past
          res.clearCookie('token', {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
@@ -124,6 +134,7 @@ export const logoutUser = async (req,res) => {
     }
 }
 
+// Get user details logic
 export const getUserdetails = async (req,res) => {
     
     try {
@@ -150,6 +161,7 @@ export const getUserdetails = async (req,res) => {
     
 }
 
+// check if user is authenticated
 export const isAuthenticated = async (req, res, next) => {
     try {
 

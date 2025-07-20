@@ -3,6 +3,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
+// create transaction logic
 export const createTransaction = async (req, res) => {
     try {
         const { trans_type, amount, category, description, date } = req.body;
@@ -39,6 +40,7 @@ export const createTransaction = async (req, res) => {
     }
 };
 
+// Extract transactions for the user
 export const getTransactions = async (req, res) => {
     try {
         const userId = req.userId; // set by auth middlewar
@@ -60,6 +62,8 @@ export const getTransactions = async (req, res) => {
     }
 };
 
+
+// Scan receipt and create transaction
 export const scanReceipt = async (req, res) => {
     try {
         const file = req.file;
@@ -134,6 +138,7 @@ export const scanReceipt = async (req, res) => {
     }
 };
 
+// Delete transaction by ID
 export const deleteTransaction = async (req, res) => {
   try {
     const { id } = req.params; // FIXED

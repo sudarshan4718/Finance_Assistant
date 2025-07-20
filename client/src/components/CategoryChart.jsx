@@ -22,7 +22,8 @@ const CategoryChart = ({ data }) => {
     name: key,
     value: expenseData[key],
   }));
-
+  
+  // If no data, return a message
   if (chartData.length === 0) {
     return <Typography>No expense data available to display chart.</Typography>;
   }

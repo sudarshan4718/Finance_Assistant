@@ -7,6 +7,7 @@ import ReceiptUpload from '../components/ReceiptUpload';
 import DateChart from '../components/DateChart';
 import SummaryBox from '../components/SummaryBox';
 
+// Dashboard component to display the main dashboard with charts and forms
 function Dashboard() {
   const [transactions, setTransactions] = useState([]);
   const [refresh, setRefresh] = useState(false);
@@ -14,7 +15,7 @@ function Dashboard() {
   const handleDataUpdate = () => {
     setRefresh(prev => !prev);
   };
-
+  // Fetch transactions when the component mounts or refresh changes
   useEffect(() => {
     const fetchTransactions = async () => {
       try {
@@ -35,8 +36,7 @@ function Dashboard() {
         Dashboard
       </Typography>
       <Grid container spacing={3}>
-        {/* Row 1: Charts */}
-        {/* Category Chart + Income/Expense Summary */}
+        {/* Category chart*/}
         <Grid item xs={12} md={6}>
           <Paper sx={{ p: 2, display: 'flex', flexDirection: 'row', gap: 2, minHeight: 450, width:500 }}>
             <Box flex={1}>
@@ -46,7 +46,7 @@ function Dashboard() {
           </Paper>
           
         </Grid>
-
+        {/* Summary Box for monthly income and expenses */}
         <Grid item xs={12} md={6}>
           <Paper sx={{ p: 2, display: 'flex', flexDirection: 'row', gap: 2, minHeight: 300, width:500 }}>
             <Box flex={1}>
@@ -65,22 +65,17 @@ function Dashboard() {
           </Paper>
         </Grid>
 
-        {/* Row 2: Forms */}
+        
         {/* Transaction & Receipt Forms Column */}
         <Grid item xs={12} md={6}>
             <Paper sx={{ p: 2, mb: 3 }}>
-                <Typography variant="h6" gutterBottom>Add Transaction</Typography>
+                <Typography variant="h6" gutterBottom></Typography>
                 <TransactionForm onTransactionAdded={handleDataUpdate} />
             </Paper>
             <Paper sx={{ p: 2 }}>
-                <Typography variant="h6" gutterBottom>Upload Receipt</Typography>
+                <Typography variant="h6" gutterBottom></Typography>
                 <ReceiptUpload onUploadSuccess={handleDataUpdate} />
             </Paper>
-        </Grid>
-        
-        {/* This column can be used for other components like recent transactions list */}
-        <Grid item xs={12} md={6}>
-          {/* You can add another component here, like a transaction list */}
         </Grid>
 
       </Grid>

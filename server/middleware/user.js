@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 
+// Middleware to check if user is authenticated
 export const userMiddleware = async (req, res, next) => {
     const { token } = req.cookies;
 

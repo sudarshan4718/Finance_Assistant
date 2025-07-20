@@ -15,6 +15,7 @@ function ReceiptUpload({ onUploadSuccess }) {
   };
 
   const handleUpload = async () => {
+    // Validate file selection
     if (!file) {
       setError('Please select a file to upload.');
       return;
@@ -24,7 +25,7 @@ function ReceiptUpload({ onUploadSuccess }) {
     setSuccess('');
 
     const formData = new FormData();
-    formData.append('receipt', file); // 'receipt' should match your backend's expected field name
+    formData.append('receipt', file); // Append the file to the form data
 
     try {
       const response = await axios.post('/api/transaction/scan-receipt', formData, {

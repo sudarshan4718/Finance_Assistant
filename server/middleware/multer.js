@@ -1,5 +1,7 @@
 import multer from "multer";
 
+// multer configuration for file uploads
+// Using memory storage to handle files in memory
 const storage = multer.memoryStorage(); 
 const fileFilter = (req, file, cb) => {
     const allowedTypes = ["image/jpeg", "image/png", "application/pdf"];

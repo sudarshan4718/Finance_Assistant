@@ -31,7 +31,7 @@ function TransactionForm({ onTransactionAdded }) {
         amount: parseFloat(amount),
         category,
         date,
-        trans_type, // Changed from 'type'
+        trans_type, 
       };
       await axios.post('/api/transaction/create-transaction', newTransaction);
 
@@ -40,10 +40,10 @@ function TransactionForm({ onTransactionAdded }) {
       setAmount('');
       setCategory('');
       setDate(new Date().toISOString().slice(0, 10));
-      setTransType('EXPENSE'); // Reset to default value
+      setTransType('EXPENSE');
       setSuccess('Transaction added successfully! 🎉');
 
-      // Notify parent component to refresh data
+      // Call the callback to notify parent component
       if (onTransactionAdded) {
         onTransactionAdded();
       }
@@ -60,11 +60,12 @@ function TransactionForm({ onTransactionAdded }) {
       <FormControl component="fieldset" margin="normal">
         <FormLabel component="legend">Type</FormLabel>
         <RadioGroup row value={trans_type} onChange={(e) => setTransType(e.target.value)}>
-          {/* Values changed to uppercase "EXPENSE" and "INCOME" */}
+          {/* Select a transaction type: */}
           <FormControlLabel value="EXPENSE" control={<Radio />} label="Expense" />
           <FormControlLabel value="INCOME" control={<Radio />} label="Income" />
         </RadioGroup>
       </FormControl>
+      {/* Input fields for transaction details */}
       <TextField
         label="Description (Optional)"
         fullWidth

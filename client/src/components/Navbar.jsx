@@ -7,7 +7,7 @@ import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 function Navbar() {
   const { isAuthenticated, user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
-
+  // Function to handle logout
   const handleLogout = () => {
     logout();
   };

@@ -9,6 +9,7 @@ function Login() {
   const [error, setError] = useState('');
   const { login } = useContext(AuthContext);
 
+  // Function to handle form submission for login
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
@@ -20,6 +21,7 @@ function Login() {
   };
 
   return (
+     
     <Container maxWidth="xs" >
       <Box sx={{ mt: 8, display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: '#f5f5f5', padding: 3, borderRadius: 2 }}>
         <Typography component="h1" variant="h7" color= 'BLUE'><b >LOGIN</b></Typography>

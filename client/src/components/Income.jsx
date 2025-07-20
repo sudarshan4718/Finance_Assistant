@@ -4,8 +4,15 @@ const IncomeComponent = ({ data }) => {
   const [totalIncome, setTotalIncome] = useState(0);
 
   useEffect(() => {
-    const now = new Date();
 
+    // Check if data is a valid array before proceeding
+    if (!Array.isArray(data)) {
+      return; 
+    }
+
+    const now = new Date();
+    
+    // Filter data by current month and year
     const incomeTransactions = data.filter(item => {
       const itemDate = new Date(item.date);
       return (

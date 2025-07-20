@@ -8,7 +8,7 @@ import { CircularProgress, Box } from '@mui/material';
 const PrivateRoute = () => {
   const { isAuthenticated, loading } = useContext(AuthContext);
 
-  // 1. If we are in the middle of checking the session, show a spinner.
+  //  If we are in the middle of checking the session, show a spinner.
   // This prevents the redirect from happening before the check is done.
   if (loading) {
     return (
@@ -18,7 +18,7 @@ const PrivateRoute = () => {
     );
   }
 
-  // 2. After the check is done (loading is false), decide where to go.
+  // After the check is done (loading is false), decide where to go.
   return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
 };
 

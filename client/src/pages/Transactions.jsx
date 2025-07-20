@@ -9,6 +9,8 @@ import 'jspdf-autotable';
 
 const ITEMS_PER_PAGE = 5;
 
+// Transactions component to display and manage transactions
+
 function Transactions() {
   const [transactions, setTransactions] = useState([]);
   const [filteredTransactions, setFilteredTransactions] = useState([]);
@@ -28,10 +30,12 @@ function Transactions() {
     }
   };
 
+  // Fetch transactions when the component mounts
   useEffect(() => {
     fetchTransactions();
   }, []);
-
+  
+  // Handle filtering transactions by date range
   const handleFilter = () => {
     let filtered = transactions;
     if (startDate) {
@@ -44,6 +48,7 @@ function Transactions() {
     setCurrentPage(1);
   };
 
+  // Clear filters and reset to all transactions
   const clearFilter = () => {
     setStartDate('');
     setEndDate('');
@@ -51,6 +56,7 @@ function Transactions() {
     setCurrentPage(1);
   };
 
+  // Function to delete a transaction
   const deleteTransaction = async (id) => {
     try {
       if (!id) throw new Error("Invalid transaction ID.");
@@ -62,6 +68,8 @@ function Transactions() {
       alert("Failed to delete transaction.");
     }
   };
+
+  // Function to download transactions as PDF
 
   const handleDownloadPdf = (txns) => {
     if (!txns || txns.length === 0) {
@@ -99,6 +107,7 @@ function Transactions() {
     }
   };
 
+  // Pagination logic
   const totalPages = Math.ceil(filteredTransactions.length / ITEMS_PER_PAGE);
   const paginatedTransactions = filteredTransactions.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,

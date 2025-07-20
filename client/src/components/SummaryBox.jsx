@@ -5,6 +5,7 @@ import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';     // Expens
 import IncomeComponent from './Income'
 import ExpenseComponent from './Expense';
 
+// SummaryBox component to display income and expense summary
 const SummaryBox = ({ transactions }) => {
   return (
     <Box

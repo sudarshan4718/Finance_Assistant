@@ -9,7 +9,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 
 const theme = createTheme({
   palette: {
-    mode: 'light', // or 'dark'
+    mode: 'light', 
   },
 });
 
