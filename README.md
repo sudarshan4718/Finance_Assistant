@@ -8,9 +8,8 @@ A full‑stack personal finance manager where users can securely log in, track i
 
 ---
 
-## 📽️ Demo
+## 📽️ Demo Video Link
 
-> Replace the link below with your own Loom or YouTube demo video
 
 https://www.loom.com/share/5f333c35ccaa4f469f70c18f906aa6f9?sid=8ab32888-171d-4509-aea0-aa668c4c9d08
 
@@ -18,9 +17,9 @@ https://www.loom.com/share/5f333c35ccaa4f469f70c18f906aa6f9?sid=8ab32888-171d-45
 
 ## 📸 Screenshots
 
-| Dashboard | PDF Export |
-|-----------|------------|
-| ![Dashboard](./screenshots/dashboard.png) | ![PDF](./screenshots/pdf-download.png) |
+| Dashboard Page | Transaction Page|
+|----------------|-----------------|
+| ![Dashboard](./client/public/Dashboard_pro.png) | ![PDF](./client/public/Transaction_pro.png) |
 
 ---
 
