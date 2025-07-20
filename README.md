@@ -74,8 +74,9 @@ PORT = 6000
 JWT_SECRET
 NODE_ENV
 GEMINI_API_KEY 
+```
 
-### 2. Install & run backend
+### 3. Install & run backend
 
 ```bash
 cd server
@@ -83,7 +84,7 @@ npm install
 npm run server
 ```
 
-### 3. Install & run frontend
+### 4. Install & run frontend
 
 ```bash
 cd  ./client
