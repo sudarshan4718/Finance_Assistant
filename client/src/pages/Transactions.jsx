@@ -5,11 +5,14 @@ import {
   Box, TextField, Button, Grid, Divider
 } from '@mui/material';
 
+const ITEMS_PER_PAGE = 5;
+
 function Transactions() {
   const [transactions, setTransactions] = useState([]);
   const [filteredTransactions, setFilteredTransactions] = useState([]);
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     const fetchTransactions = async () => {
@@ -34,13 +37,30 @@ function Transactions() {
       filtered = filtered.filter(t => new Date(t.date) <= new Date(endDate));
     }
     setFilteredTransactions(filtered);
+    setCurrentPage(1); // reset to first page after filtering
   };
-  
+
   const clearFilter = () => {
-      setStartDate('');
-      setEndDate('');
-      setFilteredTransactions(transactions);
-  }
+    setStartDate('');
+    setEndDate('');
+    setFilteredTransactions(transactions);
+    setCurrentPage(1); // reset to first page
+  };
+
+  // Pagination Logic : In this, we calculate total pages and slice the transaction for the current page
+  const totalPages = Math.ceil(filteredTransactions.length / ITEMS_PER_PAGE);
+  const paginatedTransactions = filteredTransactions.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  );
+  // move to next page logic
+  const handleNext = () => {
+    if (currentPage < totalPages) setCurrentPage(prev => prev + 1);
+  };
+   // move to previous page logic
+  const handlePrev = () => {
+    if (currentPage > 1) setCurrentPage(prev => prev - 1);
+  };
 
   return (
     <Container maxWidth="md">
@@ -74,17 +94,17 @@ function Transactions() {
           <Grid item xs={12} sm={2}>
             <Button variant="contained" onClick={handleFilter} fullWidth>Filter</Button>
           </Grid>
-           <Grid item xs={12} sm={2}>
+          <Grid item xs={12} sm={2}>
             <Button variant="outlined" onClick={clearFilter} fullWidth>Clear</Button>
           </Grid>
         </Grid>
       </Paper>
-      
+
       {/* Transaction List */}
       <Paper>
         <List>
-          {filteredTransactions.length > 0 ? (
-            filteredTransactions.map((t, index) => (
+          {paginatedTransactions.length > 0 ? (
+            paginatedTransactions.map((t, index) => (
               <React.Fragment key={t._id}>
                 <ListItem>
                   <ListItemText
@@ -93,12 +113,12 @@ function Transactions() {
                   />
                   <Typography
                     variant="body1"
-                    color={t.type === 'income' ? 'green' : 'red'}
+                    color={t.trans_type === 'INCOME' ? 'green' : 'red'}
                   >
-                    {t.type === 'income' ? '+' : '-'} ₹{t.amount.toFixed(2)}
+                    {t.trans_type === 'INCOME' ? '+' : '-'} ₹{t.amount.toFixed(2)}
                   </Typography>
                 </ListItem>
-                {index < filteredTransactions.length - 1 && <Divider />}
+                {index < paginatedTransactions.length - 1 && <Divider />}
               </React.Fragment>
             ))
           ) : (
@@ -107,6 +127,21 @@ function Transactions() {
             </ListItem>
           )}
         </List>
+
+        {/* Pagination Controls */}
+        {filteredTransactions.length > ITEMS_PER_PAGE && (
+          <Box display="flex" justifyContent="space-between" alignItems="center" p={2}>
+            <Button variant="outlined" onClick={handlePrev} disabled={currentPage === 1}>
+              Previous
+            </Button>
+            <Typography>
+              Page {currentPage} of {totalPages}
+            </Typography>
+            <Button variant="outlined" onClick={handleNext} disabled={currentPage === totalPages}>
+              Next
+            </Button>
+          </Box>
+        )}
       </Paper>
     </Container>
   );
