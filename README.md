@@ -12,7 +12,7 @@ A full‑stack personal finance manager where users can securely log in, track i
 
 > Replace the link below with your own Loom or YouTube demo video
 
-https://www.loom.com/share/YOUR_VIDEO_ID
+https://www.loom.com/share/5f333c35ccaa4f469f70c18f906aa6f9?sid=8ab32888-171d-4509-aea0-aa668c4c9d08
 
 ---
 
@@ -100,7 +100,7 @@ Visit **http://localhost:5173**
 
 1. Navigate to **Transactions** page.  
 2. (Optional) apply a date filter.  
-3. Click **Download PDF** – a file named `transactions_report_YYYY-MM-DD.pdf` will download to your browser’s default *Downloads* folder.
+3. Click **Download PDF** – a file named `transactions_report.pdf` will download to your browser’s default *Downloads* folder.
 
 ---
 
