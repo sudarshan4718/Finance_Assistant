@@ -121,7 +121,7 @@ export const scanReceipt = async (req, res) => {
             trans_type: "EXPENSE",
             amount: receiptData.amount,
             category: receiptData.category || "General",
-            description: `Receipt from ${receiptData.merchant}, items: ${receiptData.items?.join(", ")}`,
+            description: `Receipt from ${receiptData.merchantName}, items: ${receiptData.items?.join(", ")}`,
             date: receiptData.date,
         });
 
