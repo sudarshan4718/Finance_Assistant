@@ -45,7 +45,7 @@ export const registerUser = async (req, res) => {
         res.cookie('token', token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
-            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'Lax',
             maxAge: 7 * 24 * 60 * 60 * 1000,
         });
 
@@ -99,7 +99,12 @@ export const loginUser = async (req,res) => {
             maxAge: 7 * 24 * 60 * 60 * 1000
      });
 
-        return res.status(200).json({ success: true, message: "Login successful",user});
+        return res.status(200).json({ success: true, message: "Login successful",
+            user: {
+        name: user.name,
+        email: user.email,
+            }
+        });
     } catch (error) {
         return res.status(500).json({ success: false, message: error.message});
     }
@@ -132,7 +137,12 @@ export const getUserdetails = async (req,res) => {
         return res.json({success: false, message:'User not authorized' });
     }
 
-    return res.json({success: true, message: "Got user details successfully", user});
+    return res.json({success: true, message: "Got user details successfully", 
+        user:{
+            name: user.name,
+            email: user.email,
+        }
+    });
         
     } catch (error) {
         return res.json({success: false, message: error.message });
@@ -142,7 +152,15 @@ export const getUserdetails = async (req,res) => {
 
 export const isAuthenticated = async (req, res, next) => {
     try {
-        return res.status(200).json({ success: true, message: "User is authenticated" });
+
+        const { userId } = req.userId;
+        const user = await userModel.findById(userId);
+        return res.status(200).json({ success: true, message: "User is authenticated", 
+            user:{
+                name: user.name,
+                email: user.email,
+            }
+         });
     } catch (error) {
         return res.status(500).json({ success: false, message: error.message });
     }
