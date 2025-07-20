@@ -1,32 +1,41 @@
-
-import { Legend, Line, LineChart, Tooltip, XAxis, YAxis } from "recharts";
+import {
+  BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, CartesianGrid
+} from 'recharts';
+import { Typography, Paper } from '@mui/material';
 
 const DateChart = ({ data }) => {
-    // Convert date strings to Date objects and sort
-    const sortedData = data.map(item => ({
-        ...item,
-        date: new Date(item.date)
-    })).sort((a, b) => a.date - b.date);
-    
-    // Prepare data for the chart
-    const chartData = sortedData.map(item => ({
-        x: item.date.toISOString().split('T')[0], // Format date as YYYY-MM-DD
-        y: item.amount
-    }));
-    
-    return (
-        <div>
-        <h2>Date vs Amount Chart</h2>
-        <LineChart width={600} height={300} data={chartData}>
-            <XAxis dataKey="x" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Line type="monotone" dataKey="y" stroke="#8884d8" />
-        </LineChart>
-        </div>
-    );
+  // Filter only EXPENSE transactions and sort by date
+  const expenseData = data
+    .filter(item => item.trans_type === 'EXPENSE')
+    .map(item => ({
+      ...item,
+      date: new Date(item.date),
+    }))
+    .sort((a, b) => a.date - b.date);
 
-}
+  // Format data for bar chart
+  const chartData = expenseData.map(item => ({
+    x: item.date.toISOString().split('T')[0], // 'YYYY-MM-DD'
+    y: item.amount,
+  }));
+
+  return (
+    <Paper elevation={4} sx={{ p: 2 }}>
+      <Typography variant="h6" gutterBottom>
+        🧾 Expense Bar Chart by Date
+      </Typography>
+      <ResponsiveContainer width="100%" height={300}>
+        <BarChart data={chartData}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="x" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Bar dataKey="y" fill="#f44336" name="Expense" />
+        </BarChart>
+      </ResponsiveContainer>
+    </Paper>
+  );
+};
 
 export default DateChart;
