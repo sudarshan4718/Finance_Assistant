@@ -5,8 +5,6 @@ import CategoryChart from '../components/CategoryChart';
 import TransactionForm from '../components/TransactionForm';
 import ReceiptUpload from '../components/ReceiptUpload';
 import DateChart from '../components/DateChart';
-import IncomeComponent from '../components/Income';
-import ExpenseComponent from '../components/Expense';
 import SummaryBox from '../components/SummaryBox';
 
 function Dashboard() {
@@ -40,7 +38,7 @@ function Dashboard() {
         {/* Row 1: Charts */}
         {/* Category Chart + Income/Expense Summary */}
         <Grid item xs={12} md={6}>
-          <Paper sx={{ p: 2, display: 'flex', flexDirection: 'row', gap: 2, minHeight: 400, width:500 }}>
+          <Paper sx={{ p: 2, display: 'flex', flexDirection: 'row', gap: 2, minHeight: 450, width:500 }}>
             <Box flex={1}>
               <CategoryChart data={transactions} />
             </Box>

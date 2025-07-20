@@ -30,7 +30,7 @@ const CategoryChart = ({ data }) => {
   return (
     <>
       <Typography variant="h6" align="center">Expenses by Category</Typography>
-      <ResponsiveContainer width="100%" height="100%">
+      <ResponsiveContainer width="100%" height={400}>
         <PieChart>
           <Pie
             data={chartData}

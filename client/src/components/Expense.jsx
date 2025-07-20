@@ -34,7 +34,7 @@ const ExpenseComponent = ({ data }) => {
   return (
     <div>
       {/* Using toLocaleString for better number formatting */}
-      <h3>Expenses this month: ₹{totalExpense.toLocaleString('en-IN')}</h3>
+      <h3>Expenses: ₹{totalExpense.toLocaleString('en-IN')}</h3>
     </div>
   );
 };

@@ -21,7 +21,7 @@ const IncomeComponent = ({ data }) => {
 
   return (
     <div>
-      <h3>Income this month: ₹{totalIncome}</h3>
+      <h3>Income : ₹{totalIncome}</h3>
     </div>
   );
 };
