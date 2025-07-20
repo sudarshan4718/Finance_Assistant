@@ -1,8 +1,6 @@
-# 💰 Finance Assistant
+# 💰 Personal Finance Assistant
 
-<!-- ![License](https://img.shields.io/badge/license-MIT-green)
-![Status](https://img.shields.io/badge/status-active-brightgreen)
-![Made With](https://img.shields.io/badge/made%20with-React%20%26%20Node.js-blue) -->
+
 
 A full‑stack personal finance manager where users can securely log in, track income & expenses, upload receipts, visualize data with charts, and download their transaction history in PDF format.
 
@@ -53,7 +51,8 @@ https://www.loom.com/share/5f333c35ccaa4f469f70c18f906aa6f9?sid=8ab32888-171d-45
 /server          → Express backend
   ├─ routes      → API routes
   ├─ controllers → Logic handlers
-  └─ models      → Mongoose models  
+  └─ models      → Mongoose models
+  |_ middlewares -> For multer and authenticaation check for users
 ```
 
 ---
