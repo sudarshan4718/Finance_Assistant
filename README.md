@@ -17,7 +17,7 @@ https://www.loom.com/share/5f333c35ccaa4f469f70c18f906aa6f9?sid=8ab32888-171d-45
 
 | Dashboard Page | Transaction Page|
 |----------------|-----------------|
-| ![Dashboard](./client/public/Dashboard_pro.png) | ![PDF](./client/public/Transaction_pro.png) |
+| ![Dashboard](./client/public/Dashboard_pro.png) | ![Transaction](./client/public/Transaction_pro.png) |
 
 ---
 
