@@ -1,8 +1,8 @@
 # 💰 Finance Assistant
 
-![License](https://img.shields.io/badge/license-MIT-green)
+<!-- ![License](https://img.shields.io/badge/license-MIT-green)
 ![Status](https://img.shields.io/badge/status-active-brightgreen)
-![Made With](https://img.shields.io/badge/made%20with-React%20%26%20Node.js-blue)
+![Made With](https://img.shields.io/badge/made%20with-React%20%26%20Node.js-blue) -->
 
 A full‑stack personal finance manager where users can securely log in, track income & expenses, upload receipts, visualize data with charts, and download their transaction history in PDF format.
 
