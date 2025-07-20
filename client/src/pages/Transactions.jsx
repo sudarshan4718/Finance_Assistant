@@ -5,7 +5,64 @@ import {
   Box, TextField, Button, Grid, Divider
 } from '@mui/material';
 
-const ITEMS_PER_PAGE = 5;
+import jsPDF from 'jspdf'; 
+import 'jspdf-autotable'; 
+
+
+
+const ITEMS_PER_PAGE = 5; // Define how many items to show per page
+
+const handleDownloadPdf = (filteredTransactions) => {
+  if (!filteredTransactions || filteredTransactions.length === 0) {
+    alert("No transactions to download.");
+    return;
+  }
+
+  try {
+    const doc = new jsPDF();
+    
+    doc.setFont('Helvetica', 'normal');
+    doc.setFontSize(16);
+    doc.text('Transaction Report', 20, 20);
+    
+    const tableColumn = ["Date", "Description", "Category", "Type", "Amount"];
+    
+    // This .map() function now includes checks to prevent errors
+    const tableRows = filteredTransactions.map(txn => {
+      // Check 1: Ensure date is valid or provide a fallback
+      const date = txn.date ? new Date(txn.date).toLocaleDateString() : 'Invalid Date';
+      
+      // Check 2: Provide a default for missing strings
+      const description = txn.description ?? 'No Description';
+      const category = txn.category ?? 'Uncategorized';
+      
+      // Check 3: Safely handle toUpperCase() on potentially null values
+      const type = txn.trans_type?.toUpperCase() ?? 'N/A';
+      
+      // Check 4: Ensure amount is a number before calling toFixed()
+      const amount = typeof txn.amount === 'number' 
+        ? `₹${txn.amount.toFixed(2)}` 
+        : '₹0.00';
+        
+      return [date, description, category, type, amount];
+    });
+
+    doc.autoTable({
+      head: [tableColumn],
+      body: tableRows,
+      startY: 30,
+      styles: { fontSize: 10 },
+      headStyles: { fillColor: [22, 160, 133] },
+    });
+    
+    doc.save('transactions_report.pdf');
+
+  } catch (error) {
+    console.error("Failed to generate PDF. See detailed error below:", error);
+    alert("An error occurred while generating the PDF. Please check the browser's developer console (F12) for more details.");
+  }
+};
+
 
 function Transactions() {
   const [transactions, setTransactions] = useState([]);
@@ -71,33 +128,43 @@ function Transactions() {
       {/* Filter Section */}
       <Paper sx={{ p: 2, mb: 3 }}>
         <Grid container spacing={2} alignItems="center">
-          <Grid item xs={12} sm={4}>
-            <TextField
-              label="Start Date"
-              type="date"
-              fullWidth
-              value={startDate}
-              onChange={(e) => setStartDate(e.target.value)}
-              InputLabelProps={{ shrink: true }}
-            />
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <TextField
-              label="End Date"
-              type="date"
-              fullWidth
-              value={endDate}
-              onChange={(e) => setEndDate(e.target.value)}
-              InputLabelProps={{ shrink: true }}
-            />
-          </Grid>
-          <Grid item xs={12} sm={2}>
-            <Button variant="contained" onClick={handleFilter} fullWidth>Filter</Button>
-          </Grid>
-          <Grid item xs={12} sm={2}>
-            <Button variant="outlined" onClick={clearFilter} fullWidth>Clear</Button>
-          </Grid>
-        </Grid>
+  {/* Date Pickers */}
+  <Grid item xs={12} sm={6}>
+    <TextField
+      label="Start Date"
+      type="date"
+      fullWidth
+      value={startDate}
+      onChange={(e) => setStartDate(e.target.value)}
+      InputLabelProps={{ shrink: true }}
+    />
+  </Grid>
+  <Grid item xs={12} sm={6}>
+    <TextField
+      label="End Date"
+      type="date"
+      fullWidth
+      value={endDate}
+      onChange={(e) => setEndDate(e.target.value)}
+      InputLabelProps={{ shrink: true }}
+    />
+  </Grid>
+
+  {/* Action Buttons */}
+  <Grid item xs={12}>
+    <Grid container spacing={1}>
+      <Grid item xs={4}>
+        <Button variant="contained" onClick={handleFilter} fullWidth>Filter</Button>
+      </Grid>
+      <Grid item xs={4}>
+        <Button variant="outlined" onClick={clearFilter} fullWidth>Clear</Button>
+      </Grid>
+      <Grid item xs={4}>
+        <Button variant="outlined" onClick={() => handleDownloadPdf(filteredTransactions)} color='yellow' fullWidth>Download PDF</Button>
+      </Grid>
+    </Grid>
+  </Grid>
+</Grid>
       </Paper>
 
       {/* Transaction List */}
